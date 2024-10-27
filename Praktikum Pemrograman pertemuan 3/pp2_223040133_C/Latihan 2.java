@@ -1,51 +1,37 @@
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MouseListenerExample {
+public class ComboBoxModelExample {
     public static void main(String[] args) {
-        // Membuat frame
-        JFrame frame = new JFrame("MouseListener Example");
+        JFrame frame = new JFrame("ComboBoxModel Example");
 
-        // Membuat label untuk menampilkan pesan
-        JLabel label = new JLabel("Arahkan dan klik mouse pada area ini.");
-        label.setBounds(50, 50, 300, 30);
+        // Membuat model dengan opsi
+        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
+        comboBoxModel.addElement("Item 1");
+        comboBoxModel.addElement("Item 2");
+        comboBoxModel.addElement("Item 3");
+        comboBoxModel.addElement("Item 4");
 
-        // Menambahkan MouseListener ke label
-        label.addMouseListener(new MouseListener() {
-            // Dijalankan ketika mouse diklik (klik kiri, kanan atau tengah)
-            public void mouseClicked(MouseEvent e) {
-                label.setText("Mouse Clicked at: (" + e.getX() + ", " + e.getY() + ")");
-            }
+        // Membuat JComboBox dengan model
+        JComboBox<String> comboBox = new JComboBox<>(comboBoxModel);
 
-            // Dijalankan ketika mouse ditekan (tanpa dilepaskan)
-            public void mousePressed(MouseEvent e) {
-                label.setText("Mouse Pressed at: (" + e.getX() + ", " + e.getY() + ")");
-            }
-
-            // Dijalankan ketika mouse dilepaskan setelah ditekan
-            public void mouseReleased(MouseEvent e) {
-                label.setText("Mouse Released at: (" + e.getX() + ", " + e.getY() + ")");
-            }
-
-            // Dijalankan ketika mouse masuk ke area komponen
-            public void mouseEntered(MouseEvent e) {
-                label.setText("Mouse Entered the area.");
-            }
-
-            // Dijalankan ketika mouse keluar dari area komponen
-            public void mouseExited(MouseEvent e) {
-                label.setText("Mouse Exited the area.");
+        // Tambahkan listener untuk JComboBox
+        comboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Mendapatkan item yang dipilih
+                String selectedItem = (String) comboBox.getSelectedItem();
+                System.out.println("Selected: " + selectedItem);
             }
         });
 
-            // Menambahkan label ke frame
-            frame.add(label);
+        // Mengatur layout dan menambahkan JComboBox ke JFrame
+        frame.setLayout(null);
+        comboBox.setBounds(50, 50, 150, 20);
+        frame.add(comboBox);
 
-            // Setting frame
-             frame.setSize(400, 200);
-           frame.setLayout(null);
-             frame.setVisible(true);
-             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        // Konfigurasi JFrame
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }

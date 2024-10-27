@@ -1,47 +1,31 @@
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MouseListenerExample {
+public class ComboBoxExample {
     public static void main(String[] args) {
-        // Membuat frame
-        JFrame frame = new JFrame("MouseListener Example");
+        JFrame frame = new JFrame("JComboBox Example");
+        String[] options = { "Option 1", "Option 2", "Option 3", "Option 4" };
 
-        // Membuat label untuk menampilkan pesan
-        JLabel label = new JLabel("Arahkan dan klik mouse pada area ini.");
-        label.setBounds(50, 50, 300, 30);
+        // Membuat JComboBox dengan opsi
+        JComboBox<String> comboBox = new JComboBox<>(options);
 
-        // Menambahkan MouseListener ke label
-        label.addMouseListener(new MouseListener() {
-            // Dijalankan ketika mouse diklik (klik kiri, kanan atau tengah)
-            public void mouseClicked(MouseEvent e) {
-                label.setText("Mouse Clicked at: (" + e.getX() + ", " + e.getY() + ")");
-            }
-
-            // Dijalankan ketika mouse ditekan (tanpa dilepaskan)
-            public void mousePressed(MouseEvent e) {
-                label.setText("Mouse Pressed at: (" + e.getX() + ", " + e.getY() + ")");
-            }
-
-            // Dijalankan ketika mouse dilepaskan setelah ditekan
-            public void mouseReleased(MouseEvent e) {
-                label.setText("Mouse Released at: (" + e.getX() + ", " + e.getY() + ")");
-            }
-
-            // Dijalankan ketika mouse masuk ke area komponen
-            public void mouseEntered(MouseEvent e) {
-                label.setText("Mouse Entered the area.");
-            }
-
-            // Dijalankan ketika mouse keluar dari area komponen
-            public void mouseExited(MouseEvent e) {
-                label.setText("Mouse Exited the area.");
+        // Tambahkan pendengar aksi
+        comboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Mengambil item yang dipilih
+                String selected = (String) comboBox.getSelectedItem();
+                System.out.println("Selected: " + selected);
             }
         });
 
-        frame.add(label);
-        frame.setSize(400, 400);
+        // Atur layout dan tambahkan ke frame
         frame.setLayout(null);
-        frame.setVisible(true);
+        comboBox.setBounds(50, 50, 150, 20);
+        frame.add(comboBox);
+
+        // Konfigurasi frame
+        frame.setSize(300, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
